@@ -1,0 +1,30 @@
+# Node
+node_modules/
+
+# Build outputs
+target/
+dist/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Environment
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Misc
+.classpath
+.project
+.settings/
+uploads/
