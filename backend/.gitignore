@@ -1,0 +1,35 @@
+# Maven/Gradle build output
+/target/
+/build/
+
+# IDE files
+/.idea/
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment files
+.env
+
+# Java
+*.class
+
+# Generated files
+/generated/
+
+# Node modules (if any)
+/node_modules/
+
+# Others
+*.swp
+*.swo
+
+# Ignore uploads if present in backend
+/uploads/
