@@ -162,16 +162,21 @@ public class FileController {
         if (rel == null || rel.isBlank()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Missing folder name");
         }
-        if (!rel.matches("^[\\w\\- ]+$")) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid folder name");
+
+        // Normalize to prevent "../" path traversal
+        Path targetDir = userFolder.resolve(rel).normalize();
+
+        if (!targetDir.startsWith(userFolder)) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Invalid path");
         }
-        Path dir = resolvePathWithinUser(userFolder, rel);
-        if (Files.exists(dir)) {
+
+        if (Files.exists(targetDir)) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Folder already exists");
         }
+
         try {
-            Files.createDirectories(dir);
-            return buildFileInfo(userFolder, dir);
+            Files.createDirectories(targetDir);
+            return buildFileInfo(userFolder, targetDir);
         } catch (IOException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to create directory", e);
         }
