@@ -1,0 +1,14 @@
+# Use Node 18 official image for frontend
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+
+# Start frontend dev server binding to 0.0.0.0 for external access
+# CMD ["npm", "start", "--", "--host", "0.0.0.0"]
+CMD ["./node_modules/.bin/react-scripts", "start", "--host", "0.0.0.0"]
+EXPOSE 3000
